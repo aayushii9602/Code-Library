@@ -6,8 +6,8 @@ bool SubsetWithSum(int arr[], int n, int sum)
 {
     bool dp[n + 1][sum + 1];
     memset(dp, false, sizeof(dp));
-    for (int i = 0; i < n; i++)
-        dp[i][0] = true; // there always exist a subset with sum-0 that nis empty set
+    for (int i = 0; i <=n; i++)
+        dp[i][0] = true; // there always exist a subset with sum=0 that is empty set
 
     for (int i = 1; i <= n; i++)
     {
