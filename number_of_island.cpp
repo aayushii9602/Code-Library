@@ -32,6 +32,26 @@ void bfs(int row, int col, vector<vector<int>> grid, vector<vector<int>> &visite
     }
 }
 
+void dfs(int row, int col, vector<vector<int>> &visited, vector<vector<int>> grid)
+{
+    int n = grid.size();
+    int m = grid[0].size();
+    for (int rRange = -1; rRange <= 1; rRange++)
+    {
+        for (int cRange = -1; cRange <= 1; cRange++)
+        {
+            int newRow = row + rRange;
+            int newCol = col + cRange;
+            if (newRow >= 0 && newRow < n && newCol >= 0 && newCol < n &&
+                visited[newRow][newCol] == 0 && grid[newRow][newCol] == 1)
+            {
+                visited[newRow][newCol] = 1;
+                dfs(newRow, newCol, visited, grid);
+            }
+        }
+    }
+}
+
 int numberOfIsland(vector<vector<int>> grid)
 {
     int count = 0;
@@ -46,7 +66,11 @@ int numberOfIsland(vector<vector<int>> grid)
             {
                 count++;
                 visited[row][col] = 1;
-                bfs(row, col, grid, visited);
+                // using DFS traversal
+                dfs(row, col, visited, grid);
+
+                // using BFS traversal
+                // bfs(row, col, grid, visited);
             }
         }
     }
@@ -65,5 +89,6 @@ int main()
             {1, 0}};
     // using BFS traversal
     cout << "number OF island:" << numberOfIsland(grid) << endl;
+
     return 0;
 }
