@@ -2,6 +2,7 @@
 
 using namespace std;
 
+// using bfs
 bool bfs(vector<vector<int>> adj, vector<int> &colored, int node)
 {
     queue<int> q;
@@ -25,6 +26,22 @@ bool bfs(vector<vector<int>> adj, vector<int> &colored, int node)
     return true;
 }
 
+bool dfs(vector<vector<int>> adj, vector<int> &colored, int node, int color)
+{
+    colored[node] = color;
+    for (auto it : adj[node])
+    {
+        if (colored[it] == -1)
+        {
+            if (dfs(adj, colored, it, !color) == false)
+                return false;
+        }
+        else if (colored[it] == colored[node])
+            return false;
+    }
+    return true;
+}
+
 bool isBipartite(int V, vector<vector<int>> adj)
 {
     vector<int> colored(V, -1);
@@ -32,9 +49,15 @@ bool isBipartite(int V, vector<vector<int>> adj)
     {
         if (colored[i] == -1)
         {
-            colored[i] = 0;
-            if (!bfs(adj, colored, i))
-                return false;
+            // usinf BFS
+            //  colored[i] = 0;
+            //  if (!bfs(adj, colored, i))
+            //      return false;
+
+            // using DFS
+            if (colored[i] == -1)
+                if (dfs(adj, colored, i, 0) == false)
+                    return false;
         }
     }
     return true;
