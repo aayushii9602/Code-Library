@@ -95,6 +95,4 @@ int main()
     display(head);
     deleteatpos(head, 2);
     display(head);
-    // deleteatpos(head, 1);
-    // display(head);
 }
